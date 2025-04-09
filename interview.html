@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview | Interview Buddy Pro</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .video-section {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .video-container {
+            flex: 1;
+            background: black;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: white;">Interview Buddy Pro</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="interview.html" class="btn-primary">Interviews</a></li>
+                <li><a href="resource.html">Resources</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="login.html" class="btn-primary">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Video Section -->
+        <div class="video-section">
+            <div class="video-container">
+                <video id="interview-video" autoplay muted></video>
+            </div>
+            <div class="controls">
+                <button class="control-btn" onclick="startInterview()">Start</button>
+                <button class="control-btn" onclick="stopInterview()">Stop</button>
+            </div>
+        </div>
+
+        <!-- Chat Panel -->
+        <div class="chat-panel">
+            <div class="chat-header">Chat</div>
+            <div class="chat-messages" id="chat-messages">
+                <p><strong>AI Interviewer:</strong> Welcome to the interview! Please introduce yourself.</p>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type a message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Interview Buddy Pro. All rights reserved. <a href="Privacy Policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        let stream;
+
+        // Initialize Speech Recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+        } else {
+            console.error("Speech Recognition is not supported in this browser.");
+        }
+
+        async function startInterview() {
+            try {
+                if (!stream) {
+                    stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                }
+
+                const video = document.getElementById('interview-video');
+                video.srcObject = stream;
+
+                mediaRecorder = new MediaRecorder(stream);
+                recordedChunks = []; // Clear previous recordings
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.start();
+                console.log("Recording started");
+
+                // Start speech recognition
+                if (recognition) {
+                    recognition.start();
+                    console.log("Speech recognition started");
+
+                    recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        console.log("User said:", transcript);
+                        processSpeechInput(transcript);
+                    };
+
+                    recognition.onerror = (event) => {
+                        console.error("Speech recognition error:", event.error);
+                    };
+                }
+            } catch (error) {
+                console.error("Error starting the interview:", error);
+            }
+        }
+
+        function stopInterview() {
+            try {
+                if (mediaRecorder && mediaRecorder.state === "recording") {
+                    mediaRecorder.stop();
+                    console.log("Recording stopped");
+
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const url = URL.createObjectURL(blob);
+
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'interview-recording.webm';
+                    a.click();
+
+                    // Stop the video stream
+                    const tracks = stream.getTracks();
+                    tracks.forEach((track) => track.stop());
+                    stream = null; // Reset the stream
+                }
+
+                // Stop speech recognition
+                if (recognition) {
+                    recognition.stop();
+                    console.log("Speech recognition stopped");
+                }
+            } catch (error) {
+                console.error("Error stopping the interview:", error);
+            }
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            if (userInput.value.trim() !== '') {
+                const userMessage = document.createElement('p');
+                userMessage.innerHTML = `<strong>You:</strong> ${userInput.value}`;
+                chatMessages.appendChild(userMessage);
+
+                const aiMessage = document.createElement('p');
+                aiMessage.innerHTML = `<strong>AI Interviewer:</strong> Thank you for your response. Let's move to the next question.`;
+                chatMessages.appendChild(aiMessage);
+
+                userInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        function processSpeechInput(transcript) {
+            const chatMessages = document.getElementById('chat-messages');
+
+            // Add user speech as a message
+            const userMessage = document.createElement('p');
+            userMessage.innerHTML = `<strong>You:</strong> ${transcript}`;
+            chatMessages.appendChild(userMessage);
+
+            // Simulate AI response
+            const aiMessage = document.createElement('p');
+            aiMessage.innerHTML = `<strong>AI Interviewer:</strong> Thank you for your response. Let's move to the next question.`;
+            chatMessages.appendChild(aiMessage);
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
